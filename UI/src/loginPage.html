@@ -1,0 +1,339 @@
+<!doctype html>
+<html>
+<head>
+<title>Home Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+	a{
+        font-size: 20px;
+	}
+    input{
+        margin-left:10%;
+	    width:70%;
+        height:30px;
+        border-width:0px 0px 2px 0px;
+        padding-bottom: 5px;
+        border-bottom-width: 1.5px;
+        outline:none;
+    }
+    #loginModal , #registerModal, #replyModal{
+        margin-top: 100px;
+    }
+    h4{
+        margin-top: 20px;
+        margin-left: 20px; 
+    }
+    #writeblog{
+        margin-top: 20px;
+        margin-left: 20px;
+        height: 250px;
+        width:650px;
+        border :1px solid;
+    }
+    #preview{
+        float: right;
+        border: 1px solid;
+        height:110px;
+        width:110px;
+        margin-top:-40px;
+        border-radius: 50%;
+    }
+    #Addcomments{
+        position: absolute;
+        margin: 20px;
+        margin-top: 400px;
+        height: auto;
+        width: auto;
+    }
+    #profilePic{
+      height:50px !important;
+      width: 50px !important;
+      border : 1px;
+    }
+    #showBlog{
+      float: right;
+      height: auto;
+      width: 600px;
+      margin-right:20px;
+      margin-top: 70px;
+    }
+    #ask{
+       margin-top: 20px;
+       margin-left: 20px;
+    }
+    #reply{
+      margin-top: 20px;
+      margin-left: 20px;
+    }
+    #commentSection{
+      margin-top: 25px;
+      height: 100px;
+      width: 500px;
+    }
+    #displayDate {
+      margin-top: -35px;
+      font-size: 12px;
+      margin-left: 200px;
+    }
+</style>
+</head>
+<body id="home" onload="">
+  
+  <nav class="nav navbar-inverse" style="background-color:black;">
+    <div class="container-fluid">
+       <div class="navbar-header">
+          <a class="navbar-brand" style="font-size: 22px;color: white;">WRITE BLOG</a>
+       </div>
+       <ul class="nav navbar-nav navbar-right">
+          <li id="log" > 
+              <a class="btn" onclick="addNew()" data-toggle="modal" href="#">Add New Blog</a>
+            </li>
+          <li id="log" > 
+            <a class="btn" data-toggle="modal" href="#loginModal">Login</a>
+          </li>
+          <li id="register" > 
+                <a class="btn" data-toggle="modal" href="#registerModal">Sign-In</a>
+          </li>
+       </ul>
+    </div>
+</nav>
+
+<div class="modal fade" id="loginModal" role="dialog" style="margin-top:100px">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Login</h4>
+            </div>
+            <div class="modal-body">
+                    <form>
+                        <label>Email</label><br>
+                        <input style="margin-bottom: 15px;" type="email" id="loginEmail" name="firstname"><br>
+                        <label>Password</label><br>
+                        <input type="password" id="loginPassword" name="lastname">
+                    </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" onclick="login()" class="btn btn-default" data-dismiss="modal">Login</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="modal fade" id="registerModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Register</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="avatar">Choose a profile picture:</label>
+                        <input style="margin-left: 0px;" type="file"  href="../images/myw3schoolsimage.jpg" download id="avatar" name="avatar" accept="image/png, image/jpeg">
+                        <label>Email</label><br>
+                        <input style="margin-bottom: 15px;" id="userEmail" type="email" name="email"><br>
+                        <label>Password</label><br>
+                        <input type="password" id="userPassword" name="password">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" onclick="registerUser()" id="signupbtn" data-dismiss="modal">Signup</button>
+                </div>
+              </div>   
+        </div>
+    </div>
+   <div id ="showBlog"></div>
+   <div id = "Addcomments"></div>
+   <h4>Write your questions here</h4>
+   <textarea id="writeblog"></textarea><br/>
+   <button style="" id="ask" type="button" onclick="addBlog()" class="btn btn-default" > Ask Your Question</button>
+   <button data-toggle="modal" href="#replyModal" id="reply" type="button" class="btn btn-default" >Reply</button>
+  
+   <div class="modal fade" id="replyModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Reply here</h4>
+        </div>
+        <div class="modal-body">
+            <textarea id="replySection"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" onclick= "addReply()" class="btn btn-default" data-dismiss="modal">Reply</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+var loggedIn = false;
+var blogId = '';
+var logedUserData;
+
+function addNew(){
+  document.getElementById('ask').disabled = false;
+  document.getElementById('Addcomments').style.display = 'none';
+  document.getElementById('showBlog').innerHTML = '';
+}
+
+function addBlog(){
+   let writeDiv = document.getElementById('writeblog').value;
+    let div = document.getElementById('showBlog');
+    let user = this.getUserData();
+    user.blogs = writeDiv;
+    if(writeDiv === '') alert('Cannot Post Empty blogs')
+    else if(!loggedIn) alert('Login before adding blog')
+    else {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open('POST', "/api/addblog", JSON.stringify(user))
+      xhttp.setRequestHeader("Content-type", "application/json",);
+      xhttp.send(JSON.stringify(user))
+      xhttp.onreadystatechange = function() {
+      if (this.readyState == 4) {
+            loggedIn = true;
+            if(this.status === 200) {
+              let response = JSON.parse(xhttp.responseText)
+              blogId = response._id
+              alert('Blogs Updated')
+            }
+            else alert(xhttp.responseText)
+          }
+      };
+      div.innerHTML = writeDiv;
+  }
+}
+function addReplydiv(response){
+   let div = document.getElementById('Addcomments');
+   let imageAdded = document.getElementById('avatar').value
+   let imageTag = document.createElement('img')
+   imageTag.id = 'profilePic'
+   imageTag.setAttribute('src', logedUserData.profile)
+   div.appendChild(imageTag)
+   let nameTag = document.createTextNode(response.email);
+   nameTag.id = "userName"
+   div.appendChild(nameTag)
+   let dateTag = document.createElement('p')
+   dateTag.innerHTML = this.formatDate()
+   dateTag.id="displayDate"
+   div.appendChild(dateTag)
+   let commentDiv = document.createElement('div')
+   commentDiv.id = "commentSection"
+   div.appendChild(commentDiv)
+   let reply = document.getElementById('replySection').value
+   commentDiv.innerHTML = reply;
+}
+
+function addReply(){
+  document.getElementById('Addcomments').style.display = 'block';
+  let reply = document.getElementById('replySection').value;
+  let user = this.getloginUserData()
+  user.reply = {email: user.email, replyText : reply}
+  user._id = blogId;
+  if(!loggedIn) alert('Login before reply')
+    else {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open('POST', "/api/addreply", JSON.stringify(user))
+      xhttp.setRequestHeader("Content-type", "application/json",);
+      xhttp.send(JSON.stringify(user))
+      xhttp.onreadystatechange = function() {
+      if (this.readyState == 4) {
+            loggedIn = true;
+            if(this.status === 200) {
+              let response = JSON.parse(xhttp.responseText)
+              addReplydiv(response);
+              alert('Reply Added')
+              document.getElementById('ask').disabled = true;
+            }
+            else alert(xhttp.responseText)
+          }
+      };
+  }
+}
+
+function formatDate(){
+  let date = new Date();
+  let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  let formatedDate = date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+  return formatedDate;
+}
+function getUserData(){
+  var email = document.getElementById('userEmail').value
+  var password = document.getElementById('userPassword').value
+  var imageUploaded = document.getElementById('avatar').value
+  let user = {email:email, password:password, profile:imageUploaded}
+  return user
+}
+function getloginUserData(){
+  var email = document.getElementById('loginEmail').value
+  var password = document.getElementById('loginPassword').value
+  let logedUser = {email:email, password:password}
+  return logedUser;
+}
+async function registerUser(){
+  let user = this.getUserData();
+  let signupbtn = document.getElementById('signupbtn');
+  signupbtn.href = '../images'
+  signupbtn.setAttribute('download', user.profile)
+  let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  if(user.email === '') {
+    alert('Please enter email')
+  } else if(user.password === '') {
+     alert('Please enter password')
+  } else if(reg.test(user.email) == false || user.password.length < 6 || user.password.length > 8) {
+    alert('Please enter valid email or password')
+  } else {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', "/api/register", JSON.stringify(user))
+    xhttp.setRequestHeader("Content-type", "application/json",);
+    xhttp.send(JSON.stringify(user))
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4) {
+            if(xhttp.status === 200) {
+              alert('User Registered')
+              
+            }
+            else alert(xhttp.responseText)
+          }
+      };
+  }
+}
+function login(){
+  let user = this.getloginUserData();
+  let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  if(user.email === '') {
+    alert('Please enter email')
+  } else if(user.password === '') {
+     alert('Please enter password')
+  } else {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', "/api/login", JSON.stringify(user))
+    xhttp.setRequestHeader("Content-type", "application/json",);
+    xhttp.send(JSON.stringify(user))
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4) {
+            loggedIn = true;
+            if(xhttp.status === 200){
+              logedUserData = JSON.parse(xhttp.responseText)
+              console.log('dataRegistered',logedUserData)
+              alert('Successfull')
+            }
+            else alert(xhttp.responseText)
+          }
+      };
+  }
+}
+</script>
+</body>
+</html>

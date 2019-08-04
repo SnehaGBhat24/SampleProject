@@ -1,0 +1,23 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "Disqus System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SnehaGBhat24/SampleProject.git"
+  },
+  "author": "Sneha G Bhat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SnehaGBhat24/SampleProject/issues"
+  },
+  "homepage": "https://github.com/SnehaGBhat24/SampleProject#readme",
+  "dependencies": {
+    "bootstrap": "^3.4.1",
+    "lodash": "^4.17.15"
+  }
+}
