@@ -8,6 +8,7 @@ module.exports = {
             { $push: { replyforblog: req.body.reply } },
             function(err, updatedUser){
                 if(err){
+                    console.log(err)
                     res.status(400)
                     res.json('Error While updating')
                 } else {
